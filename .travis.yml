@@ -1,27 +1,14 @@
-os: osx
-osx_image: xcode10.2
+sudo: required
+dist: xenial
+language: go
 
-language: bash
-
-git:
-  depth: false
-
-before_cache:
-  - brew cleanup
+services:
+  - docker
   
-cache:
-  - directories:
-    - $HOME/Library/Caches/Homebrew
-
-install:
-  - whoami
-  - echo "Start of pipeline"
-  #- HOMEBREW_NO_AUTO_UPDATE=1
-
 script:
-  - ls
-  - chmod +x hello.sh
-  - ./hello.sh
-
+  - docker pull hello-world 
+  - docker run -d hello-world
+  - docker ps
+ 
 after_script:
-  - echo "End of pipeline"
+  - echo "Image built and run sucessfully"
